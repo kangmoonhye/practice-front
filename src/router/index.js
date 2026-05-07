@@ -4,7 +4,7 @@ import ProductListView from '../views/ProductListView.vue'
 
 const routes = [
   { path: '/', component: Main },
-  { path: '/product/list', component: ProductListView },
+  { path: '/products/list', component: ProductListView },
 ]
 
 const router = createRouter({
