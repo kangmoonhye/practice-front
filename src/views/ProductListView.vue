@@ -31,12 +31,12 @@
             <td>{{ p.price }}만원</td>
             <td>
               <a v-if="p.salesLink" :href="formatUrl(p.salesLink)" target="_blank">
-                {{ p.salesLink }}
+                {{ truncateText(p.salesLink, 50) }}
               </a>
             </td>
             <td>
               <a v-if="p.reviewLink" :href="formatUrl(p.reviewLink)" target="_blank">
-                {{ p.reviewLink }}
+                {{ truncateText(p.reviewLink, 50) }}
               </a>
             </td>
             <td>
