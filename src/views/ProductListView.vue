@@ -41,11 +41,11 @@
             </td>
             <td>
               <img
-                v-for="img in p.imagePath.split(',')"
+                v-for="img in imageList(p.imagePath)"
                 :key="img"
-                :src="`http://34.47.71.107:8080/${img}`"
+                :src="imageUrl(img)"
                 class="thumb"
-                @click="openImageModal(`http://34.47.71.107:8080/${img}`)"
+                @click="openImageModal(imageUrl(img))"
               />
             </td>
             <td>

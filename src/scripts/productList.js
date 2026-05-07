@@ -15,7 +15,7 @@ export default {
         price: '',
         salesLink: '',
         reviewLink: '',
-        image: [],
+        images: [],
       },
     }
   },
@@ -26,7 +26,6 @@ export default {
 
   methods: {
     async loadProducts() {
-      // const res = await fetch('http://localhost:8080/product/list')
       const res = await fetch('/product/list')
       const data = await res.json()
       this.products = Array.isArray(data.result) ? data.result : []
@@ -35,6 +34,22 @@ export default {
     formatUrl(url) {
       if (!url) return '#'
       return url.startsWith('http') ? url : 'https://' + url
+    },
+
+    imageList(imagePath) {
+      if (!imagePath) return []
+
+      return imagePath
+        .split(',')
+        .map((img) => img.trim())
+        .filter((img) => img.length > 0)
+    },
+
+    imageUrl(img) {
+      if (!img) return ''
+      if (img.startsWith('http')) return img
+      if (img.startsWith('/')) return `http://34.47.71.107:8080${img}`
+      return `http://34.47.71.107:8080/${img}`
     },
 
     loadMain() {
@@ -47,7 +62,7 @@ export default {
         price: '',
         salesLink: '',
         reviewLink: '',
-        image: null,
+        images: [],
       }
     },
 
@@ -73,7 +88,7 @@ export default {
       this.form.price = p.price
       this.form.salesLink = p.salesLink
       this.form.reviewLink = p.reviewLink
-      this.form.image = null
+      this.form.images = []
 
       this.isModalOpen = true
     },
@@ -81,7 +96,6 @@ export default {
     handleImage(event) {
       const files = Array.from(event.target.files)
 
-      // 5MB 제한 체크
       const validFiles = files.filter((f) => f.size <= 5 * 1024 * 1024)
 
       if (validFiles.length !== files.length) {
@@ -99,18 +113,20 @@ export default {
       formData.append('salesLink', this.form.salesLink)
       formData.append('reviewLink', this.form.reviewLink)
 
-      this.form.images.forEach((file) => {
-        formData.append('images', file)
-      })
-
       if (this.isEditMode) {
-        // await fetch(`http://localhost:8080/product/update/${this.editIdx}`, {
+        if (this.form.images.length > 0) {
+          formData.append('image', this.form.images[0])
+        }
+
         await fetch(`/product/update/${this.editIdx}`, {
           method: 'PATCH',
           body: formData,
         })
       } else {
-        // await fetch('http://localhost:8080/product/create', {
+        this.form.images.forEach((file) => {
+          formData.append('images', file)
+        })
+
         await fetch('/product/create', {
           method: 'POST',
           body: formData,
@@ -124,7 +140,6 @@ export default {
     async deleteProduct(idx) {
       if (!confirm('삭제하시겠습니까?')) return
 
-      // await fetch(`http://localhost:8080/product/delete/${idx}`, {
       await fetch(`/product/delete/${idx}`, {
         method: 'DELETE',
       })
