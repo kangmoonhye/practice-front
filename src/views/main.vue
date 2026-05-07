@@ -10,7 +10,7 @@
 export default {
   methods: {
     goList() {
-      this.$router.push('/product/list')
+      this.$router.push('/products/list')
     },
   },
 }
