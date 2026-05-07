@@ -43,9 +43,9 @@
               <img
                 v-for="img in p.imagePath.split(',')"
                 :key="img"
-                :src="img"
+                :src="`http://34.47.71.107:8080/${img}`"
                 class="thumb"
-                @click="openImageModal(img)"
+                @click="openImageModal(`http://34.47.71.107:8080/${img}`)"
               />
             </td>
             <td>
