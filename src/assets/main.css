@@ -1,0 +1,147 @@
+.main-page {
+  min-height: 100vh;
+  padding: 24px 30px;
+  box-sizing: border-box;
+  background: #f3f6fb;
+  color: #1f2937;
+}
+
+.main-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.main-header h1 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.create-button {
+  height: 38px;
+  padding: 0 18px;
+  background: #fff;
+  color: #1f2937;
+  border: 1px solid #d9e0ea;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.board-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+
+.board-card {
+  height: 210px;
+  width: 210px;
+  background: #fff;
+  color: #1f2937;
+  border: 1px solid #e1e6ef;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
+  font-size: 22px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.board-card:hover,
+.create-button:hover {
+  background: #f8fafc;
+}
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 23, 42, 0.35);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  width: 360px;
+  padding: 24px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.18);
+}
+
+.modal h2 {
+  margin: 0 0 18px;
+  font-size: 20px;
+}
+
+.modal input {
+  width: 100%;
+  height: 38px;
+  padding: 0 10px;
+  box-sizing: border-box;
+  border: 1px solid #d9e0ea;
+  border-radius: 6px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.modal-actions button {
+  height: 34px;
+  padding: 0 14px;
+  background: #fff;
+  border: 1px solid #d9e0ea;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.board-wrapper {
+  position: relative;
+}
+
+.delete-button {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+
+  width: 70px;
+  height: 32px;
+
+  border: none;
+  border-radius: 6px;
+
+  background: #ef4444;
+  color: #fff;
+
+  cursor: pointer;
+}
+
+.update-button {
+  position: absolute;
+  top: 12px;
+  right: 85px;
+
+  width: 70px;
+  height: 32px;
+
+  border: none;
+  border-radius: 6px;
+
+  background: #2600ff;
+  color: #fff;
+
+  cursor: pointer;
+}
+
+.delete-button:hover {
+  background: #dc2626;
+}
