@@ -20,8 +20,8 @@ export default {
 
   methods: {
     async loadBoards() {
-      // const res = await fetch('/boards/list')
-      const res = await fetch('http://localhost:8080/boards/list')
+      const res = await fetch('/boards/list')
+      // const res = await fetch('http://localhost:8080/boards/list')
       this.boards = await res.json()
     },
 
@@ -44,8 +44,8 @@ export default {
       const formData = new FormData()
       formData.append('name', this.boardName)
 
-      // await fetch('/boards/create', {
-      await fetch('http://localhost:8080/boards/create', {
+      await fetch('/boards/create', {
+        // await fetch('http://localhost:8080/boards/create', {
         method: 'POST',
         body: formData,
       })
@@ -57,7 +57,8 @@ export default {
     async deleteBoard(boardIdx) {
       if (!confirm('게시판을 삭제하시겠습니까?')) return
 
-      await fetch(`http://localhost:8080/boards/delete/${boardIdx}`, {
+      // await fetch(`http://localhost:8080/boards/delete/${boardIdx}`, {
+      await fetch(`/boards/delete/${boardIdx}`, {
         method: 'DELETE',
       })
 
@@ -94,7 +95,8 @@ export default {
       formData.append('password', this.password)
 
       const res = await fetch(
-        `http://localhost:8080/boards/${this.selectedBoard.idx}/check-password`,
+        // `http://localhost:8080/boards/${this.selectedBoard.idx}/check-password`,
+        `/boards/${this.selectedBoard.idx}/check-password`,
         {
           method: 'POST',
           body: formData,
@@ -140,7 +142,8 @@ export default {
       formData.append('name', this.editBoardName)
       formData.append('password', this.editBoardPassword || '')
 
-      await fetch(`http://localhost:8080/boards/update/${this.editBoardIdx}`, {
+      // await fetch(`http://localhost:8080/boards/update/${this.editBoardIdx}`, {
+      await fetch(`/boards/update/${this.editBoardIdx}`, {
         method: 'PATCH',
         body: formData,
       })

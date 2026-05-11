@@ -26,8 +26,8 @@ export default {
 
   methods: {
     async loadProducts() {
-      // const res = await fetch('/product/list')
-      const res = await fetch('http://localhost:8080/product/list')
+      const res = await fetch('/product/list')
+      // const res = await fetch('http://localhost:8080/product/list')
       const data = await res.json()
       this.products = Array.isArray(data.result) ? data.result : []
     },
@@ -119,8 +119,8 @@ export default {
           formData.append('image', this.form.images[0])
         }
 
-        // await fetch(`/product/update/${this.editIdx}`, {
-        await fetch(`http://localhost:8080/product/update/${this.editIdx}`, {
+        await fetch(`/product/update/${this.editIdx}`, {
+          // await fetch(`http://localhost:8080/product/update/${this.editIdx}`, {
           method: 'PATCH',
           body: formData,
         })
@@ -129,8 +129,8 @@ export default {
           formData.append('images', file)
         })
 
-        // await fetch('/product/create', {
-        await fetch('http://localhost:8080/product/create', {
+        await fetch('/product/create', {
+          // await fetch('http://localhost:8080/product/create', {
           method: 'POST',
           body: formData,
         })
@@ -143,8 +143,8 @@ export default {
     async deleteProduct(idx) {
       if (!confirm('삭제하시겠습니까?')) return
 
-      // await fetch(`/product/delete/${idx}`, {
-      await fetch(`http://localhost:8080/product/delete/${idx}`, {
+      await fetch(`/product/delete/${idx}`, {
+        // await fetch(`http://localhost:8080/product/delete/${idx}`, {
         method: 'DELETE',
       })
 

@@ -34,7 +34,8 @@ export default {
 
   methods: {
     async loadItems() {
-      const res = await fetch(`http://localhost:8080/boards/${this.boardIdx}/account-books`)
+      // const res = await fetch(`http://localhost:8080/boards/${this.boardIdx}/account-books`)
+      const res = await fetch(`/boards/${this.boardIdx}/account-books`)
 
       const data = await res.json()
 
@@ -126,12 +127,14 @@ export default {
       formData.append('card', this.form.card)
 
       if (this.isEditMode) {
-        await fetch(`http://localhost:8080/boards/${this.boardIdx}/account-books/${this.editIdx}`, {
+        // await fetch(`http://localhost:8080/boards/${this.boardIdx}/account-books/${this.editIdx}`, {
+        await fetch(`/boards/${this.boardIdx}/account-books/${this.editIdx}`, {
           method: 'PATCH',
           body: formData,
         })
       } else {
-        await fetch(`http://localhost:8080/boards/${this.boardIdx}/account-books`, {
+        // await fetch(`http://localhost:8080/boards/${this.boardIdx}/account-books`, {
+        await fetch(`/boards/${this.boardIdx}/account-books`, {
           method: 'POST',
           body: formData,
         })
@@ -144,7 +147,8 @@ export default {
     async deleteItem(idx) {
       if (!confirm('삭제하시겠습니까?')) return
 
-      await fetch(`http://localhost:8080/boards/${this.boardIdx}/account-books/${idx}`, {
+      // await fetch(`http://localhost:8080/boards/${this.boardIdx}/account-books/${idx}`, {
+      await fetch(`/boards/${this.boardIdx}/account-books/${idx}`, {
         method: 'DELETE',
       })
 
