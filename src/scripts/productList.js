@@ -49,12 +49,40 @@ export default {
       return '/product/create'
     },
 
-    async loadProducts() {
-      const res = await fetch(this.getListUrl())
-      // const res = await fetch(`http://localhost:8080${this.getListUrl()}`)
+    async parseJsonResponse(res) {
+      const text = await res.text()
 
-      const data = await res.json()
-      this.products = Array.isArray(data.result) ? data.result : []
+      if (!res.ok) {
+        console.error('[API ERROR]', res.status, text)
+        throw new Error(`API 요청 실패: ${res.status}`)
+      }
+
+      if (text.trim().startsWith('<!DOCTYPE') || text.trim().startsWith('<html')) {
+        console.error('[API HTML RESPONSE]', text)
+        throw new Error(
+          'API가 JSON이 아니라 HTML을 반환했습니다. 백엔드 경로 또는 nginx 설정을 확인해야 합니다.',
+        )
+      }
+
+      return JSON.parse(text)
+    },
+
+    async loadProducts() {
+      try {
+        const url = this.getListUrl()
+        console.log('[loadProducts] url:', url)
+
+        const res = await fetch(url)
+        const data = await this.parseJsonResponse(res)
+
+        this.products = Array.isArray(data.result) ? data.result : []
+
+        console.log('[loadProducts] products:', this.products)
+      } catch (error) {
+        console.error('[loadProducts] 실패:', error)
+        alert(error.message)
+        this.products = []
+      }
     },
 
     formatUrl(url) {
@@ -121,7 +149,6 @@ export default {
 
     handleImage(event) {
       const files = Array.from(event.target.files)
-
       const validFiles = files.filter((f) => f.size <= 5 * 1024 * 1024)
 
       if (validFiles.length !== files.length) {
@@ -139,41 +166,71 @@ export default {
       formData.append('salesLink', this.form.salesLink)
       formData.append('reviewLink', this.form.reviewLink)
 
-      if (this.isEditMode) {
-        if (this.form.images.length > 0) {
-          formData.append('image', this.form.images[0])
+      try {
+        if (this.isEditMode) {
+          if (this.form.images.length > 0) {
+            formData.append('image', this.form.images[0])
+          }
+
+          const res = await fetch(`/product/update/${this.editIdx}`, {
+            method: 'PATCH',
+            body: formData,
+          })
+
+          await this.parseJsonOrTextResponse(res)
+        } else {
+          this.form.images.forEach((file) => {
+            formData.append('images', file)
+          })
+
+          const res = await fetch(this.getCreateUrl(), {
+            method: 'POST',
+            body: formData,
+          })
+
+          await this.parseJsonOrTextResponse(res)
         }
 
-        await fetch(`/product/update/${this.editIdx}`, {
-          // await fetch(`http://localhost:8080/product/update/${this.editIdx}`, {
-          method: 'PATCH',
-          body: formData,
-        })
-      } else {
-        this.form.images.forEach((file) => {
-          formData.append('images', file)
-        })
+        this.closeModal()
+        await this.loadProducts()
+      } catch (error) {
+        console.error('[createProduct] 실패:', error)
+        alert(error.message)
+      }
+    },
 
-        await fetch(this.getCreateUrl(), {
-          // await fetch(`http://localhost:8080${this.getCreateUrl()}`, {
-          method: 'POST',
-          body: formData,
-        })
+    async parseJsonOrTextResponse(res) {
+      const text = await res.text()
+
+      if (!res.ok) {
+        console.error('[API ERROR]', res.status, text)
+        throw new Error(`API 요청 실패: ${res.status}`)
       }
 
-      this.closeModal()
-      await this.loadProducts()
+      if (text.trim().startsWith('<!DOCTYPE') || text.trim().startsWith('<html')) {
+        console.error('[API HTML RESPONSE]', text)
+        throw new Error(
+          'API가 JSON/텍스트가 아니라 HTML을 반환했습니다. 백엔드 경로 또는 nginx 설정을 확인해야 합니다.',
+        )
+      }
+
+      return text
     },
 
     async deleteProduct(idx) {
       if (!confirm('삭제하시겠습니까?')) return
 
-      await fetch(`/product/delete/${idx}`, {
-        // await fetch(`http://localhost:8080/product/delete/${idx}`, {
-        method: 'DELETE',
-      })
+      try {
+        const res = await fetch(`/product/delete/${idx}`, {
+          method: 'DELETE',
+        })
 
-      await this.loadProducts()
+        await this.parseJsonOrTextResponse(res)
+        await this.loadProducts()
+      } catch (error) {
+        console.error('[deleteProduct] 실패:', error)
+        alert(error.message)
+      }
     },
 
     openImageModal(imageUrl) {
@@ -188,7 +245,6 @@ export default {
 
     truncateText(text, max = 50) {
       if (!text) return ''
-
       return text.length > max ? text.substring(0, max) + '...' : text
     },
   },
