@@ -2,12 +2,17 @@ export default {
   data() {
     return {
       boards: [],
+
       isBoardModalOpen: false,
       boardName: '',
+      boardType: 'product',
+
       isEditBoardModalOpen: false,
       editBoardIdx: null,
       editBoardName: '',
       editBoardPassword: '',
+      editBoardType: 'product',
+
       isPasswordModalOpen: false,
       selectedBoard: null,
       password: '',
@@ -27,11 +32,13 @@ export default {
 
     openBoardModal() {
       this.boardName = ''
+      this.boardType = 'product'
       this.isBoardModalOpen = true
     },
 
     closeBoardModal() {
       this.boardName = ''
+      this.boardType = 'product'
       this.isBoardModalOpen = false
     },
 
@@ -43,6 +50,7 @@ export default {
 
       const formData = new FormData()
       formData.append('name', this.boardName)
+      formData.append('type', this.boardType)
 
       await fetch('/boards/create', {
         // await fetch('http://localhost:8080/boards/create', {
@@ -77,12 +85,12 @@ export default {
     },
 
     moveBoard(board) {
-      if (board.name === '블랙박스') {
-        this.$router.push('/products/list')
+      if (board.type === 'product') {
+        this.$router.push(`/boards/${board.idx}/products`)
         return
       }
 
-      if (board.name === '가계부') {
+      if (board.type === 'account') {
         this.$router.push(`/boards/${board.idx}/account-books`)
         return
       }
@@ -122,6 +130,7 @@ export default {
       this.editBoardIdx = board.idx
       this.editBoardName = board.name
       this.editBoardPassword = ''
+      this.editBoardType = board.type || 'product'
       this.isEditBoardModalOpen = true
     },
 
@@ -129,6 +138,7 @@ export default {
       this.editBoardIdx = null
       this.editBoardName = ''
       this.editBoardPassword = ''
+      this.editBoardType = 'product'
       this.isEditBoardModalOpen = false
     },
 
@@ -141,6 +151,7 @@ export default {
       const formData = new FormData()
       formData.append('name', this.editBoardName)
       formData.append('password', this.editBoardPassword || '')
+      formData.append('type', this.editBoardType)
 
       // await fetch(`http://localhost:8080/boards/update/${this.editBoardIdx}`, {
       await fetch(`/boards/update/${this.editBoardIdx}`, {

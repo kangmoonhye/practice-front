@@ -19,6 +19,10 @@
         <h2>게시판 만들기</h2>
 
         <input v-model="boardName" placeholder="게시판 이름" />
+        <select v-model="boardType">
+          <option value="product">상품 게시판</option>
+          <option value="account">가계부</option>
+        </select>
 
         <div class="modal-actions">
           <button @click="createBoard">저장</button>
@@ -31,6 +35,10 @@
         <h2>게시판 수정</h2>
 
         <input v-model="editBoardName" placeholder="게시판 이름" />
+        <select v-model="editBoardType">
+          <option value="product">상품 게시판</option>
+          <option value="account">가계부</option>
+        </select>
 
         <input
           v-model="editBoardPassword"

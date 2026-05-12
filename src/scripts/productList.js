@@ -25,9 +25,34 @@ export default {
   },
 
   methods: {
+    getBoardIdx() {
+      return this.$route.params.boardIdx
+    },
+
+    getListUrl() {
+      const boardIdx = this.getBoardIdx()
+
+      if (boardIdx) {
+        return `/product/boards/${boardIdx}/list`
+      }
+
+      return '/product/list'
+    },
+
+    getCreateUrl() {
+      const boardIdx = this.getBoardIdx()
+
+      if (boardIdx) {
+        return `/product/boards/${boardIdx}/create`
+      }
+
+      return '/product/create'
+    },
+
     async loadProducts() {
-      const res = await fetch('/product/list')
-      // const res = await fetch('http://localhost:8080/product/list')
+      const res = await fetch(this.getListUrl())
+      // const res = await fetch(`http://localhost:8080${this.getListUrl()}`)
+
       const data = await res.json()
       this.products = Array.isArray(data.result) ? data.result : []
     },
@@ -129,8 +154,8 @@ export default {
           formData.append('images', file)
         })
 
-        await fetch('/product/create', {
-          // await fetch('http://localhost:8080/product/create', {
+        await fetch(this.getCreateUrl(), {
+          // await fetch(`http://localhost:8080${this.getCreateUrl()}`, {
           method: 'POST',
           body: formData,
         })
