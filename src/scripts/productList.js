@@ -33,7 +33,7 @@ export default {
       const boardIdx = this.getBoardIdx()
 
       if (boardIdx) {
-        return `/product/boards/${boardIdx}/list`
+        return `/product/list/${boardIdx}`
       }
 
       return '/product/list'
@@ -43,7 +43,7 @@ export default {
       const boardIdx = this.getBoardIdx()
 
       if (boardIdx) {
-        return `/product/boards/${boardIdx}/create`
+        return `/product/create/${boardIdx}`
       }
 
       return '/product/create'
