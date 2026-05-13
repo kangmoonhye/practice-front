@@ -11,6 +11,7 @@ export default {
         totalAmount: 0,
         hyundaiAmount: 0,
         samsungAmount: 0,
+        transferAmount: 0,
       },
 
       isModalOpen: false,
@@ -34,9 +35,7 @@ export default {
 
   methods: {
     async loadItems() {
-      // const res = await fetch(`http://localhost:8080/boards/${this.boardIdx}/account-books`)
       const res = await fetch(`/boards/${this.boardIdx}/account-books`)
-
       const data = await res.json()
 
       this.items = Array.isArray(data.items) ? data.items : []
@@ -68,10 +67,15 @@ export default {
         .filter((item) => item.card === '삼성')
         .reduce((sum, item) => sum + Number(item.amount), 0)
 
+      const transfer = this.filteredItems
+        .filter((item) => item.card === '송금')
+        .reduce((sum, item) => sum + Number(item.amount), 0)
+
       this.summary = {
         totalAmount: total,
         hyundaiAmount: hyundai,
         samsungAmount: samsung,
+        transferAmount: transfer,
       }
     },
 
@@ -127,13 +131,11 @@ export default {
       formData.append('card', this.form.card)
 
       if (this.isEditMode) {
-        // await fetch(`http://localhost:8080/boards/${this.boardIdx}/account-books/${this.editIdx}`, {
         await fetch(`/boards/${this.boardIdx}/account-books/${this.editIdx}`, {
           method: 'PATCH',
           body: formData,
         })
       } else {
-        // await fetch(`http://localhost:8080/boards/${this.boardIdx}/account-books`, {
         await fetch(`/boards/${this.boardIdx}/account-books`, {
           method: 'POST',
           body: formData,
@@ -147,7 +149,6 @@ export default {
     async deleteItem(idx) {
       if (!confirm('삭제하시겠습니까?')) return
 
-      // await fetch(`http://localhost:8080/boards/${this.boardIdx}/account-books/${idx}`, {
       await fetch(`/boards/${this.boardIdx}/account-books/${idx}`, {
         method: 'DELETE',
       })
@@ -182,6 +183,7 @@ export default {
     cardClass(card) {
       if (card === '현대') return 'card-hyundai'
       if (card === '삼성') return 'card-samsung'
+      if (card === '송금') return 'card-transfer'
       return ''
     },
 

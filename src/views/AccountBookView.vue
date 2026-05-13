@@ -51,13 +51,6 @@
             <td colspan="6" class="empty">등록된 내역이 없습니다.</td>
           </tr>
 
-          <tr class="summary-row total">
-            <td>합계</td>
-            <td></td>
-            <td>{{ formatAmount(summary.totalAmount) }}</td>
-            <td colspan="3"></td>
-          </tr>
-
           <tr class="summary-row hyundai">
             <td>현대</td>
             <td></td>
@@ -69,6 +62,20 @@
             <td>삼성</td>
             <td></td>
             <td>{{ formatAmount(summary.samsungAmount) }}</td>
+            <td colspan="3"></td>
+          </tr>
+
+          <tr class="summary-row transfer">
+            <td>송금</td>
+            <td></td>
+            <td>{{ formatAmount(summary.transferAmount) }}</td>
+            <td colspan="3"></td>
+          </tr>
+
+          <tr class="summary-row total">
+            <td>합계</td>
+            <td></td>
+            <td>{{ formatAmount(summary.totalAmount) }}</td>
             <td colspan="3"></td>
           </tr>
         </tbody>
@@ -94,6 +101,7 @@
         <select v-model="form.card">
           <option value="현대">현대</option>
           <option value="삼성">삼성</option>
+          <option value="송금">송금</option>
         </select>
 
         <div class="modal-actions">
