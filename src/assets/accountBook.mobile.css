@@ -43,7 +43,6 @@
   }
 
   .header-left select {
-    flex: 0 0 88px;
     width: 88px;
     height: 36px;
     font-size: 14px;
@@ -51,7 +50,7 @@
 
   .actions {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 8px;
     width: 100%;
   }
@@ -62,9 +61,8 @@
     height: 38px;
     padding: 0 6px;
     font-size: 13px;
-    line-height: 1.2;
     border-radius: 8px;
-    white-space: normal;
+    white-space: nowrap;
   }
 
   .table-card {
@@ -97,16 +95,12 @@
     flex-direction: column;
     gap: 10px;
     width: 100%;
-    max-width: 100%;
-    min-width: 0;
   }
 
   .account-table tr {
     display: block;
     position: relative;
     width: 100%;
-    max-width: 100%;
-    min-width: 0;
     padding: 14px;
     overflow: hidden;
     background: #fff;
@@ -118,11 +112,11 @@
   .account-table td {
     display: block;
     width: 100%;
-    max-width: 100%;
-    min-width: 0;
     padding: 4px 0;
     overflow: hidden;
-    border: 0;
+    border: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
     font-size: 14px;
     line-height: 1.45;
     text-align: left;
@@ -182,7 +176,6 @@
   }
 
   .account-table td:nth-child(6) button {
-    flex: 0 0 auto;
     min-width: 52px;
     height: 30px;
     padding: 0 8px;
@@ -191,17 +184,17 @@
   }
 
   .card-hyundai {
-    background: #dcfce7;
+    background: #dcfce7 !important;
     color: #166534;
   }
 
   .card-samsung {
-    background: #dbeafe;
+    background: #dbeafe !important;
     color: #1d4ed8;
   }
 
   .card-transfer {
-    background: #fef3c7;
+    background: #fef3c7 !important;
     color: #92400e;
   }
 
@@ -209,18 +202,25 @@
     display: grid !important;
     grid-template-columns: 80px minmax(0, 1fr);
     align-items: center;
-    padding: 12px 14px !important;
+    padding: 14px !important;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 0 !important;
   }
 
   .summary-row td {
     display: none;
+    border: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
   }
 
   .summary-row td:first-child,
   .summary-row td:nth-child(3) {
     display: block;
     width: auto;
-    padding: 0;
+    padding: 0 !important;
+    background: transparent !important;
   }
 
   .summary-row td:first-child {
@@ -234,21 +234,21 @@
   }
 
   .summary-row.hyundai {
-    background: #ecfdf5;
+    background: #ecfdf5 !important;
   }
 
   .summary-row.samsung {
-    background: #eff6ff;
+    background: #eff6ff !important;
   }
 
   .summary-row.transfer {
-    background: #fffbeb;
+    background: #fffbeb !important;
   }
 
-  .summary-row.total {
-    background: #111827;
+  /* .summary-row.total {
+    background: #111827 !important;
     color: #fff;
-  }
+  } */
 
   .empty {
     text-align: center !important;
