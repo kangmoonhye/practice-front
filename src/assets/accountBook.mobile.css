@@ -1,6 +1,21 @@
 @media (max-width: 768px) {
+  html,
+  body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
   .account-page {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
     padding: 16px;
+    overflow-x: hidden;
     background: #f5f7fb;
   }
 
@@ -8,7 +23,7 @@
     display: flex;
     flex-direction: column;
     gap: 12px;
-    align-items: stretch;
+    width: 100%;
     margin-bottom: 16px;
   }
 
@@ -17,6 +32,7 @@
     align-items: center;
     justify-content: space-between;
     gap: 12px;
+    width: 100%;
   }
 
   .header-left h1 {
@@ -27,6 +43,7 @@
   }
 
   .header-left select {
+    flex: 0 0 88px;
     width: 88px;
     height: 36px;
     font-size: 14px;
@@ -34,46 +51,64 @@
 
   .actions {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 8px;
+    width: 100%;
   }
 
   .actions button {
+    width: 100%;
+    min-width: 0;
     height: 38px;
-    padding: 0 8px;
+    padding: 0 6px;
     font-size: 13px;
+    line-height: 1.2;
     border-radius: 8px;
-    white-space: nowrap;
+    white-space: normal;
   }
 
   .table-card {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
     padding: 0;
-    background: transparent;
-    box-shadow: none;
-    border: 0;
     overflow: visible;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
   }
 
   .account-table {
+    display: block;
     width: 100%;
+    max-width: 100%;
+    min-width: 0 !important;
     border-collapse: separate;
-    border-spacing: 0 10px;
+    border-spacing: 0;
+    table-layout: fixed;
   }
 
   .account-table thead {
     display: none;
   }
 
-  .account-table tbody,
-  .account-table tr,
-  .account-table td {
-    display: block;
+  .account-table tbody {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
     width: 100%;
+    max-width: 100%;
+    min-width: 0;
   }
 
   .account-table tr {
+    display: block;
     position: relative;
-    padding: 14px 14px 12px;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    padding: 14px;
+    overflow: hidden;
     background: #fff;
     border: 1px solid #e5e8ef;
     border-radius: 14px;
@@ -81,12 +116,19 @@
   }
 
   .account-table td {
-    border: 0;
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
     padding: 4px 0;
+    overflow: hidden;
+    border: 0;
     font-size: 14px;
     line-height: 1.45;
     text-align: left;
+    white-space: normal !important;
     word-break: keep-all;
+    overflow-wrap: anywhere;
   }
 
   .account-table td:nth-child(1) {
@@ -95,16 +137,16 @@
   }
 
   .account-table td:nth-child(2) {
-    padding-right: 88px;
+    padding-right: 82px;
     font-size: 16px;
     font-weight: 700;
     color: #111827;
   }
 
   .account-table td:nth-child(3) {
-    padding-right: 88px;
+    padding-right: 82px;
     font-size: 17px;
-    font-weight: 700;
+    font-weight: 800;
     color: #111827;
   }
 
@@ -121,12 +163,14 @@
     top: 14px;
     right: 14px;
     width: auto;
-    min-width: 54px;
+    min-width: 52px;
+    max-width: 72px;
     padding: 5px 9px;
     border-radius: 999px;
     font-size: 12px;
     font-weight: 700;
     text-align: center;
+    white-space: nowrap !important;
   }
 
   .account-table td:nth-child(6) {
@@ -134,9 +178,11 @@
     justify-content: flex-end;
     gap: 6px;
     margin-top: 8px;
+    overflow: visible;
   }
 
   .account-table td:nth-child(6) button {
+    flex: 0 0 auto;
     min-width: 52px;
     height: 30px;
     padding: 0 8px;
@@ -161,7 +207,7 @@
 
   .summary-row {
     display: grid !important;
-    grid-template-columns: 80px 1fr;
+    grid-template-columns: 80px minmax(0, 1fr);
     align-items: center;
     padding: 12px 14px !important;
   }
@@ -173,6 +219,8 @@
   .summary-row td:first-child,
   .summary-row td:nth-child(3) {
     display: block;
+    width: auto;
+    padding: 0;
   }
 
   .summary-row td:first-child {
@@ -181,8 +229,8 @@
 
   .summary-row td:nth-child(3) {
     text-align: right;
-    font-weight: 800;
     font-size: 16px;
+    font-weight: 800;
   }
 
   .summary-row.hyundai {
@@ -220,7 +268,6 @@
     height: 42px;
     margin-bottom: 10px;
     font-size: 15px;
-    box-sizing: border-box;
   }
 
   .modal-actions {
