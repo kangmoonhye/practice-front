@@ -91,7 +91,7 @@ export default {
       }
 
       if (board.type === 'account') {
-        this.$router.push(`/boards/${board.idx}/account-books`)
+        this.$router.push(`/boards/${board.idx}/account`)
         return
       }
 
