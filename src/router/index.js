@@ -18,7 +18,7 @@ const routes = [
   { path: '/boards/:boardIdx', component: BoardView },
 
   // 가계부 게시판
-  { path: '/boards/:boardIdx/account-books', component: AccountBookView },
+  { path: '/boards/:boardIdx/account', component: AccountBookView },
 ]
 
 const router = createRouter({
