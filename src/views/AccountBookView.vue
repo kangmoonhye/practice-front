@@ -115,3 +115,4 @@
 
 <script src="../scripts/accountBook.js"></script>
 <style scoped src="../assets/accountBook.css"></style>
+<style scoped src="../assets/accountBook.mobile.css"></style>
