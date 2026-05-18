@@ -28,7 +28,7 @@
           <tr v-for="(p, index) in products" :key="p.idx">
             <td>{{ index + 1 }}</td>
             <td>{{ p.productName }}</td>
-            <td>{{ p.price }}만원</td>
+            <td>{{ formatPrice(p.price) }}</td>
             <td>
               <a v-if="p.salesLink" :href="formatUrl(p.salesLink)" target="_blank">
                 {{ truncateText(p.salesLink, 50) }}
