@@ -254,24 +254,13 @@ export default {
       const num = Number(price)
 
       const man = Math.floor(num / 10000)
-      const thousand = Math.floor((num % 10000) / 1000)
-      const rest = num % 1000
+      const rest = num % 10000
 
-      let result = ''
-
-      if (man > 0) {
-        result += `${man.toLocaleString()}만`
+      if (rest === 0) {
+        return `${man.toLocaleString()}만 원`
       }
 
-      if (thousand > 0) {
-        result += `${thousand}천`
-      }
-
-      if (rest > 0) {
-        result += `${rest.toLocaleString()}`
-      }
-
-      return result + '원'
+      return `${man.toLocaleString()}만 ${rest.toLocaleString()}원`
     },
   },
 }
